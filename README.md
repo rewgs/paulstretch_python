@@ -1,9 +1,12 @@
 This is a fork of Targu Mures' `paulstretch_python`. The repo hasn't been updated in about a decade (looks to use something like Python 3.4.x?), so I intend to update this with more modern Python.
 
 # TODO
+- Write some tests and figure out where the codebase is at.
+- Add typehints.
 - All three files share a good bit of code. Abstract into a single shared base.
 - Replace [`optparse`](https://docs.python.org/3/library/optparse.html#module-optparse) with [`argparse`](https://docs.python.org/3/library/argparse.html#module-argparse).
-- Separate cli behavior into its own `cli.py` file.
+- Separate cli behavior into its own `cli.py`.
+- Separate main functionality into `main.py`.
 
 # Original README
 
