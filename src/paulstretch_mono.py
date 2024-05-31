@@ -4,21 +4,21 @@ import wave
 import scipy.io.wavfile
 from numpy import *
 
+from .funcs import load_wav
 
-def load_wav(filename):
-    try:
-        wavedata = scipy.io.wavfile.read(filename)
-        samplerate = int(wavedata[0])
-        smp = wavedata[1] * (1.0 / 32768.0)
-        if len(smp.shape) > 1:  # convert to mono
-            smp = (smp[:, 0] + smp[:, 1]) * 0.5
-        return (samplerate, smp)
-    except:
-        print("Error loading wav: " + filename)
-        return None
+# NOTE: moved to funcs.py
+# def load_wav(filename):
+#     try:
+#         wavedata = scipy.io.wavfile.read(filename)
+#         samplerate = int(wavedata[0])
+#         smp = wavedata[1] * (1.0 / 32768.0)
+#         if len(smp.shape) > 1:  # convert to mono
+#             smp = (smp[:, 0] + smp[:, 1]) * 0.5
+#         return (samplerate, smp)
+#     except:
+#         print("Error loading wav: " + filename)
+#         return None
 
-
-########################################
 
 def paulstretch(samplerate, smp, stretch, windowsize_seconds, outfilename):
     outfile = wave.open(outfilename, "wb")

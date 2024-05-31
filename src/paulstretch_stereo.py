@@ -5,19 +5,21 @@ from optparse import OptionParser
 import scipy.io.wavfile
 from numpy import *
 
+from .funcs import load_wav
 
-def load_wav(filename):
-    try:
-        wavedata = scipy.io.wavfile.read(filename)
-        samplerate = int(wavedata[0])
-        smp = wavedata[1] * (1.0 / 32768.0)
-        smp = smp.transpose()
-        if len(smp.shape) == 1:  # convert to stereo
-            smp = tile(smp, (2, 1))
-        return (samplerate, smp)
-    except:
-        print("Error loading wav: " + filename)
-        return None
+# NOTE: moved to funcs.py
+# def load_wav(filename):
+#     try:
+#         wavedata = scipy.io.wavfile.read(filename)
+#         samplerate = int(wavedata[0])
+#         smp = wavedata[1] * (1.0 / 32768.0)
+#         smp = smp.transpose()
+#         if len(smp.shape) == 1:  # convert to stereo
+#             smp = tile(smp, (2, 1))
+#         return (samplerate, smp)
+#     except:
+#         print("Error loading wav: " + filename)
+#         return None
 
 
 def optimize_windowsize(n):
