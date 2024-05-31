@@ -1,17 +1,3 @@
-#!/usr/bin/env python
-#
-# Paul's Extreme Sound Stretch (Paulstretch) - Python version
-#
-# by Nasca Octavian PAUL, Targu Mures, Romania
-# http://www.paulnasca.com/
-#
-# http://hypermammut.sourceforge.net/paulstretch/
-#
-# this file is released under Public Domain
-#
-#
-
-
 import sys
 import wave
 from optparse import OptionParser
