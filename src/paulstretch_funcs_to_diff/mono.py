@@ -1,26 +1,6 @@
-import sys
-import wave
-
-import scipy.io.wavfile
-from numpy import *
-
-from .funcs import load_wav
-
-# NOTE: moved to funcs.py
-# def load_wav(filename):
-#     try:
-#         wavedata = scipy.io.wavfile.read(filename)
-#         samplerate = int(wavedata[0])
-#         smp = wavedata[1] * (1.0 / 32768.0)
-#         if len(smp.shape) > 1:  # convert to mono
-#             smp = (smp[:, 0] + smp[:, 1]) * 0.5
-#         return (samplerate, smp)
-#     except:
-#         print("Error loading wav: " + filename)
-#         return None
-
-
 def paulstretch(samplerate, smp, stretch, windowsize_seconds, outfilename):
+
+
     outfile = wave.open(outfilename, "wb")
     outfile.setsampwidth(2)
     outfile.setframerate(samplerate)
@@ -32,6 +12,7 @@ def paulstretch(samplerate, smp, stretch, windowsize_seconds, outfilename):
         windowsize = 16
     windowsize = int(windowsize / 2) * 2
     half_windowsize = int(windowsize / 2)
+
 
     # correct the end of the smp
     end_size = int(samplerate * 0.05)
@@ -52,7 +33,6 @@ def paulstretch(samplerate, smp, stretch, windowsize_seconds, outfilename):
         arange(half_windowsize, dtype='float') * 2.0 * pi / half_windowsize)
 
     while True:
-
         # get the windowed buffer
         istart_pos = int(floor(start_pos))
         buf = smp[istart_pos:istart_pos + windowsize]
@@ -95,10 +75,3 @@ def paulstretch(samplerate, smp, stretch, windowsize_seconds, outfilename):
         sys.stdout.flush()
 
     outfile.close()
-
-
-########################################
-
-(samplerate, smp) = load_wav("input.wav")
-
-paulstretch(samplerate, smp, 8.0, 0.25, "out.wav")

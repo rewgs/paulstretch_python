@@ -3,6 +3,22 @@ import scipy.io.wavfile
 import wave
 
 
+def optimize_windowsize(n):
+    orig_n = n
+    while True:
+        n = orig_n
+        while (n % 2) == 0:
+            n /= 2
+        while (n % 3) == 0:
+            n /= 3
+        while (n % 5) == 0:
+            n /= 5
+        if n < 2:
+            break
+        orig_n += 1
+    return orig_n
+
+
 def load_wav(file):
     try:
         wavedata = scipy.io.wavfile.read(filename)
@@ -22,7 +38,6 @@ def load_wav(file):
         return
     else:
         return samplerate, smp
-
 
 # OLD - STEREO
 # def load_wav(filename):

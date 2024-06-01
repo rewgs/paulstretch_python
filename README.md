@@ -2,11 +2,12 @@ This is a fork of Targu Mures' `paulstretch_python`. The repo hasn't been update
 
 # TODO
 - Write some tests and figure out where the codebase is at.
-- Add typehints.
 - All three files share a good bit of code. Abstract into a single shared base.
+    - `paulstretch()` should be part of a PaulStretch class
 - Replace [`optparse`](https://docs.python.org/3/library/optparse.html#module-optparse) with [`argparse`](https://docs.python.org/3/library/argparse.html#module-argparse).
 - Separate cli behavior into its own `cli.py`.
 - Separate main functionality into `main.py`.
+- Add typehints.
 
 # Original README
 

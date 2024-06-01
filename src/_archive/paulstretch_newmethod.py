@@ -9,36 +9,38 @@ plot_onsets = False
 if plot_onsets:
     import matplotlib.pyplot as plt
 
+from ..funcs import load_wav, optimize_windowsize
 
-def load_wav(filename):
-    try:
-        wavedata = scipy.io.wavfile.read(filename)
-        samplerate = int(wavedata[0])
-        smp = wavedata[1] * (1.0 / 32768.0)
-        smp = smp.transpose()
-        if len(smp.shape) == 1:  # convert to stereo
-            smp = tile(smp, (2, 1))
-        return (samplerate, smp)
-    except:
-        print("Error loading wav: " + filename)
-        return None
+# NOTE: moved to funcs.py
+# def load_wav(filename):
+#     try:
+#         wavedata = scipy.io.wavfile.read(filename)
+#         samplerate = int(wavedata[0])
+#         smp = wavedata[1] * (1.0 / 32768.0)
+#         smp = smp.transpose()
+#         if len(smp.shape) == 1:  # convert to stereo
+#             smp = tile(smp, (2, 1))
+#         return (samplerate, smp)
+#     except:
+#         print("Error loading wav: " + filename)
+#         return None
 
 
-def optimize_windowsize(n):
-    orig_n = n
-    while True:
-        n = orig_n
-        while (n % 2) == 0:
-            n /= 2
-        while (n % 3) == 0:
-            n /= 3
-        while (n % 5) == 0:
-            n /= 5
-
-        if n < 2:
-            break
-        orig_n += 1
-    return orig_n
+# NOTE: moved to funcs.py
+# def optimize_windowsize(n):
+#     orig_n = n
+#     while True:
+#         n = orig_n
+#         while (n % 2) == 0:
+#             n /= 2
+#         while (n % 3) == 0:
+#             n /= 3
+#         while (n % 5) == 0:
+#             n /= 5
+#         if n < 2:
+#             break
+#         orig_n += 1
+#     return orig_n
 
 
 def paulstretch(samplerate, smp, stretch, windowsize_seconds, onset_level, outfilename):
@@ -187,23 +189,20 @@ def paulstretch(samplerate, smp, stretch, windowsize_seconds, onset_level, outfi
 
 
 ########################################
-print("Paul's Extreme Sound Stretch (Paulstretch) - Python version 20141220")
-print("new method: using onsets information")
-print("by Nasca Octavian PAUL, Targu Mures, Romania\n")
-parser = OptionParser(usage="usage: %prog [options] input_wav output_wav")
-parser.add_option("-s", "--stretch", dest="stretch", help="stretch amount (1.0 = no stretch)", type="float",
-                  default=8.0)
-parser.add_option("-w", "--window_size", dest="window_size", help="window size (seconds)", type="float", default=0.25)
-parser.add_option("-t", "--onset", dest="onset", help="onset sensitivity (0.0=max,1.0=min)", type="float", default=10.0)
-(options, args) = parser.parse_args()
-
-if (len(args) < 2) or (options.stretch <= 0.0) or (options.window_size <= 0.001):
-    print("Error in command line parameters. Run this program with --help for help.")
-    sys.exit(1)
-
-print("stretch amount = %g" % options.stretch)
-print("window size = %g seconds" % options.window_size)
-print("onset sensitivity = %g" % options.onset)
-(samplerate, smp) = load_wav(args[0])
-
-paulstretch(samplerate, smp, options.stretch, options.window_size, options.onset, args[1])
+# NOTE: moved to cli.py/main.py
+# print("Paul's Extreme Sound Stretch (Paulstretch) - Python version 20141220")
+# print("new method: using onsets information")
+# print("by Nasca Octavian PAUL, Targu Mures, Romania\n")
+# parser = OptionParser(usage="usage: %prog [options] input_wav output_wav")
+# parser.add_option("-s", "--stretch", dest="stretch", help="stretch amount (1.0 = no stretch)", type="float", default=8.0)
+# parser.add_option("-w", "--window_size", dest="window_size", help="window size (seconds)", type="float", default=0.25)
+# parser.add_option("-t", "--onset", dest="onset", help="onset sensitivity (0.0=max,1.0=min)", type="float", default=10.0)
+# (options, args) = parser.parse_args()
+# if (len(args) < 2) or (options.stretch <= 0.0) or (options.window_size <= 0.001):
+#     print("Error in command line parameters. Run this program with --help for help.")
+#     sys.exit(1)
+# print("stretch amount = %g" % options.stretch)
+# print("window size = %g seconds" % options.window_size)
+# print("onset sensitivity = %g" % options.onset)
+# (samplerate, smp) = load_wav(args[0])
+# paulstretch(samplerate, smp, options.stretch, options.window_size, options.onset, args[1])
